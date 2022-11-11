@@ -7,20 +7,21 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import dk.easj.anbo.sensorlistcheckbox.databinding.FragmentFirstBinding
 
-class FirstFragment : Fragment() , SensorEventListener {
+// Kotlin adapted from https://github.com/andersbor/AndroidSensorExample
+class FirstFragment : Fragment(), SensorEventListener {
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
-    private val checkBoxList = mutableListOf<CheckBox>()
     private lateinit var sensorManager: SensorManager
+    // Two parallel lists
     private lateinit var allSensors: List<Sensor>
+    private val checkBoxList = mutableListOf<CheckBox>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,8 +34,7 @@ class FirstFragment : Fragment() , SensorEventListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sensorManager =
-            requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         allSensors = sensorManager.getSensorList(Sensor.TYPE_ALL)
 
         val layout = binding.mainLinearLayout
@@ -67,7 +67,8 @@ class FirstFragment : Fragment() , SensorEventListener {
     private fun registerListeners() {
         for (i in allSensors.indices) {
             if (checkBoxList[i].isChecked) {
-                sensorManager.registerListener(this, allSensors[i],
+                sensorManager.registerListener(
+                    this, allSensors[i],
                     SensorManager.SENSOR_DELAY_NORMAL
                 )
             }
@@ -84,7 +85,7 @@ class FirstFragment : Fragment() , SensorEventListener {
 
         val message = "${event?.sensor?.name}\t ${event?.values?.joinToString(", ")}"
         Log.d("APPLE", message)
-        // or send a message on UDP
+        // or send a message on UDP, or ...
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
