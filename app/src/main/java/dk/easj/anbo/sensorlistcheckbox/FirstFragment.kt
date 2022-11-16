@@ -17,7 +17,7 @@ import dk.easj.anbo.sensorlistcheckbox.databinding.FragmentFirstBinding
 // Kotlin adapted from https://github.com/andersbor/AndroidSensorExample
 class FirstFragment : Fragment(), SensorEventListener {
     private var _binding: FragmentFirstBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding!!  
     private lateinit var sensorManager: SensorManager
     // Two parallel lists
     private lateinit var allSensors: List<Sensor>
