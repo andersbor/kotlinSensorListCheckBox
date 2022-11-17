@@ -17,8 +17,9 @@ import dk.easj.anbo.sensorlistcheckbox.databinding.FragmentFirstBinding
 // Kotlin adapted from https://github.com/andersbor/AndroidSensorExample
 class FirstFragment : Fragment(), SensorEventListener {
     private var _binding: FragmentFirstBinding? = null
-    private val binding get() = _binding!!  
+    private val binding get() = _binding!!
     private lateinit var sensorManager: SensorManager
+
     // Two parallel lists
     private lateinit var allSensors: List<Sensor>
     private val checkBoxList = mutableListOf<CheckBox>()
@@ -80,15 +81,20 @@ class FirstFragment : Fragment(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        binding.textviewSensorName.text = event?.sensor?.name
+        val sensorName = event?.sensor?.name
+        binding.textviewSensorName.text = sensorName
         binding.textviewSensorData.text = event?.values?.joinToString(", ")
+        if (sensorName != null && event != null) {
+            UdpBroadcastHelper().sendUdpBroadcast(sensorName, event.values, 14593)
+        }
 
         val message = "${event?.sensor?.name}\t ${event?.values?.joinToString(", ")}"
         Log.d("APPLE", message)
-        // or send a message on UDP, or ...
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // Nothing
     }
+
+
 }
