@@ -11,10 +11,16 @@ class UdpBroadcastHelper {
 
     // TODO translated from Java: convert to proper Kotlin
     fun sendUdpBroadcast(name: String, values: FloatArray, port: Int) {
-        val message = "$name\n${values.joinToString(":")}"
+        val message = "$name\n${values.joinToString(" ")}"
         Log.d("MINE", message)
         sendUdpBroadcastAsync(message, port)
     }
+
+    fun sendUdpBroadcast(message: String, port: Int) {
+        Log.d("MINE", message)
+        sendUdpBroadcastAsync(message, port)
+    }
+
 
     private fun sendUdpBroadcastAsync(message: String, port: Int) {
         val broadCaster = UdpBroadCaster()
@@ -38,13 +44,13 @@ class UdpBroadcastHelper {
         }
 
         @Throws(IOException::class)
-        private fun sendUdpBroadcast(messageStr: String, port: Int) {
+        fun sendUdpBroadcast(messageStr: String, port: Int) {
             val broadcastIP = "255.255.255.255"
             val inetAddress: InetAddress = InetAddress.getByName(broadcastIP)
             val socket = DatagramSocket()
             // todo try with resource? requires higher api level 19
             // https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
-            socket.setBroadcast(true)
+            socket.broadcast = true
             val sendData = messageStr.toByteArray()
             val sendPacket = DatagramPacket(sendData, sendData.size, inetAddress, port)
             socket.send(sendPacket)

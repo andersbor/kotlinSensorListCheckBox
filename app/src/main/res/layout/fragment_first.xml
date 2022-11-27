@@ -5,14 +5,58 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="5dp"
+    android:id="@+id/first_fragment"
     tools:context=".FirstFragment">
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="Listening" />
+        android:orientation="horizontal">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_sensors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="Sensors" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UDP Port" />
+
+        <EditText
+            android:id="@+id/edit_text_udp_port_sensors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Port number"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="Location" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UDP Port" />
+
+        <EditText
+            android:id="@+id/edit_text_udp_port_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Port number"
+            android:inputType="number" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textview_sensor_name"
