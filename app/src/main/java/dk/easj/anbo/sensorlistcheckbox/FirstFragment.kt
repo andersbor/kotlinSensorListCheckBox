@@ -97,7 +97,7 @@ class FirstFragment : Fragment(), SensorEventListener {
 
     override fun onPause() {
         super.onPause()
-        unregisterListeners()
+       // unregisterListeners()
     }
 
     override fun onDestroyView() {
